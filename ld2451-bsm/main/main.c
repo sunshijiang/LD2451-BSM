@@ -43,15 +43,15 @@ int sendData(const char* logName, const char* data)
     return txBytes;
 }
 
-static void tx_task(void *arg)
-{
-    static const char *TX_TASK_TAG = "TX_TASK";
-    esp_log_level_set(TX_TASK_TAG, ESP_LOG_INFO);
-    while (1) {
-        sendData(TX_TASK_TAG, "Hello world");
-        vTaskDelay(2000 / portTICK_PERIOD_MS);
-    }
-}
+// static void tx_task(void *arg)
+// {
+//     static const char *TX_TASK_TAG = "TX_TASK";
+//     esp_log_level_set(TX_TASK_TAG, ESP_LOG_INFO);
+//     while (1) {
+//         sendData(TX_TASK_TAG, "Hello world");
+//         vTaskDelay(2000 / portTICK_PERIOD_MS);
+//     }
+// }
 
 static void rx_task(void *arg)
 {
@@ -73,5 +73,5 @@ void app_main(void)
 {
     init();
     xTaskCreate(rx_task, "uart_rx_task", 1024 * 2, NULL, configMAX_PRIORITIES - 1, NULL);
-    xTaskCreate(tx_task, "uart_tx_task", 1024 * 2, NULL, configMAX_PRIORITIES - 2, NULL);
+    // xTaskCreate(tx_task, "uart_tx_task", 1024 * 2, NULL, configMAX_PRIORITIES - 2, NULL);
 }
